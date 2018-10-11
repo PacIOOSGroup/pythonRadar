@@ -18,10 +18,9 @@ def main():
 		print("Not enough command line argumentsarguments \n"
 		+ "Format is year, month, day, hour, minute, second, location")
 		quit()
-#	print(scipy.io.whosmat('radar_in.mat'))
 
 	print("Reading Matlab binary file...")
-	#get the values from the table
+
 	slon=f['slon']
 	slat=f['slat']
 	X = f['X']
@@ -41,12 +40,11 @@ def main():
 	SDCS=f['SpectraDopplerCells']
 
 	im, jm = np.shape(X)
-	#flatten the 2d arrays to 1d so they're easier to work with
+
 	X = X.flatten(order='F')
 	Y = Y.flatten(order='F')
 	r = r.flatten(order='F')
 	
-	#initialize arrays so python doesn't complain
 	BEAR = []
 	RNGE = []
 	XLON = []
@@ -60,9 +58,9 @@ def main():
 	HEAD = []
 	VELO=VELO.flatten(order='F')
 	EACC=EACC.flatten(order='F')
-	#print(np.shape(X))
 	iomax = 0
 	ij = 0
+
 	print("Performing calculations...")
 	for j in range(0, jm):
 		for i in range (0, im):
@@ -72,7 +70,6 @@ def main():
 			xc4 = r[i]
 			xc5 = VELO[ij]
 			xc6 = EACC[ij]	
-			#don't want to print any NaNs
 			if not (math.isnan(xc1) or math.isnan(xc2) or math.isnan(xc3)
 			or math.isnan(xc4) or math.isnan(xc5) or math.isnan(xc6)):
 				BEAR.insert(iomax, theta[0,j])
@@ -107,7 +104,6 @@ def main():
 	f.write("%LLUVSpec: 1.00 2007 12 06\n")
 	f.write("%Site: " + str(SITE[0]) + "\n")
 	f.write("%TimeStamp: " + year +" "+ month + " " + day + " " + hours + " " + minutes + " " + seconds + "\n")
-	#current datetime= datetime.now().strftime('%Y-%m-%d %H:%M:%S' + "\n"))
 	f.write("%TimeZone: UTC + 0.00 0 \n")
 	f.write("%Origin: " + str(slat[0]) + "," + str(slon[0]) + "\n")
 	f.write("%GreatCircle: \"WGS84\" 6378137.000 298.257223562997\n")
