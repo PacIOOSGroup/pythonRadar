@@ -20,6 +20,7 @@ def main():
 		quit()
 #	print(scipy.io.whosmat('radar_in.mat'))
 
+	print("Reading Matlab binary file...")
 	#get the values from the table
 	slon=f['slon']
 	slat=f['slat']
@@ -62,6 +63,7 @@ def main():
 	#print(np.shape(X))
 	iomax = 0
 	ij = 0
+	print("Performing calculations...")
 	for j in range(0, jm):
 		for i in range (0, im):
 			xc1 = X[ij]
@@ -95,7 +97,7 @@ def main():
 					iomax += 1	
 			ij = ij+1
 
-	f = open("test.ruv", "wt")
+	f = open('RDL_' + place + '_' + year + '_' + month + '_' + day + '_' + hours + minutes + seconds + '.ruv', "wt")
 	print("Writing to " + str(f.name))
 	
 	#print header data
